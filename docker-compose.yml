@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  hosting-checker:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    container_name: hosting-checker
+    ports:
+      - "3000:3000"
+    environment:
+      # API Keys
+      - IPINFO_TOKEN=${IPINFO_TOKEN}
+      - HACKERTARGET_API_KEY=${HACKERTARGET_API_KEY}
+
+      # Rate Limiting
+      - RATE_LIMIT_MAX=${RATE_LIMIT_MAX:-10}
+      - RATE_LIMIT_WINDOW_MS=${RATE_LIMIT_WINDOW_MS:-60000}
+
+      # Cache TTL
+      - CACHE_TTL_WHOIS=${CACHE_TTL_WHOIS:-86400}
+      - CACHE_TTL_GEO=${CACHE_TTL_GEO:-604800}
+      - CACHE_TTL_REVERSE_IP=${CACHE_TTL_REVERSE_IP:-3600}
+      - CACHE_TTL_HEALTH=${CACHE_TTL_HEALTH:-300}
+      - CACHE_TTL_DNS_ANALYSIS=${CACHE_TTL_DNS_ANALYSIS:-1800}
+
+      # App Config
+      - NEXT_PUBLIC_APP_URL=${NEXT_PUBLIC_APP_URL:-http://localhost:3000}
+      - NODE_ENV=production
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:3000', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 40s
+    networks:
+      - hosting-checker-network
+
+networks:
+  hosting-checker-network:
+    driver: bridge
