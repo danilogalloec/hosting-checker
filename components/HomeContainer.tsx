@@ -50,7 +50,7 @@ export default function HomeContainer() {
                                 }`}
                         >
                             <Shield className="h-4 w-4" />
-                            Ver mi IP
+                            My IP
                         </button>
                     </div>
                 </div>
