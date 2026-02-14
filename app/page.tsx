@@ -1,39 +1,11 @@
-import { SearchForm } from '@/components/ui/SearchForm';
+import HomeContainer from '@/components/HomeContainer';
 import { Server, Globe, Shield, Activity, Network, MapPin } from 'lucide-react';
 
 export default function HomePage() {
   return (
     <div className="space-y-12">
       {/* Hero Section */}
-      <section className="text-center py-12">
-        <div className="max-w-3xl mx-auto">
-          <h1 className="text-5xl font-bold text-gray-900 mb-4">
-            Complete Domain Analysis
-          </h1>
-          <p className="text-xl text-gray-600 mb-8">
-            Get instant insights about any domain's hosting, DNS configuration, and infrastructure
-          </p>
-
-          {/* Search Form */}
-          <div className="max-w-2xl mx-auto">
-            <SearchForm autoFocus />
-          </div>
-
-          {/* Quick Examples */}
-          <div className="mt-6 flex flex-wrap items-center justify-center gap-2">
-            <span className="text-sm text-gray-600">Try:</span>
-            {['google.com', 'github.com', 'cloudflare.com'].map((domain) => (
-              <a
-                key={domain}
-                href={`/results/${domain}`}
-                className="text-sm px-3 py-1 bg-white border border-gray-300 rounded-full hover:border-primary hover:text-primary transition-colors"
-              >
-                {domain}
-              </a>
-            ))}
-          </div>
-        </div>
-      </section>
+      <HomeContainer />
 
       {/* Features Grid */}
       <section className="py-8">

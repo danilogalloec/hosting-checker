@@ -59,12 +59,28 @@ export interface WhoisInfo {
 // REVERSE IP
 // ============================================
 
+// ============================================
+// REVERSE IP
+// ============================================
+
 export interface ReverseIPInfo {
   ip: string;
   totalDomains: number;
   domains: string[];
   limited: boolean;
   source: string;
+}
+
+export interface ReverseDnsResult {
+  ip: string;
+  hostnames: string[];
+  error?: string;
+}
+
+export interface ClientInfo {
+  ip: string;
+  userAgent?: string;
+  geolocation?: GeolocationInfo;
 }
 
 // ============================================
