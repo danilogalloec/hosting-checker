@@ -21,13 +21,22 @@ export async function getReverseDns(input: string): Promise<ReverseDnsResult> {
             `Error resolving domain ${input} to IP`
         );
 
-        if (!resolveResult.success || !resolveResult.data) {
+        if (!resolveResult.success) {
             return {
                 ip: '',
                 hostnames: [],
                 error: resolveResult.error || 'Could not resolve domain to IP'
             };
         }
+
+        if (!resolveResult.data) {
+            return {
+                ip: '',
+                hostnames: [],
+                error: 'Resolved IP is empty'
+            };
+        }
+
         targetIp = resolveResult.data;
     }
 
@@ -40,9 +49,16 @@ export async function getReverseDns(input: string): Promise<ReverseDnsResult> {
         `Error performing reverse DNS for IP ${targetIp}`
     );
 
+    if (!ptrResult.success) {
+        return {
+            ip: targetIp,
+            hostnames: [],
+            error: ptrResult.error
+        };
+    }
+
     return {
         ip: targetIp,
-        hostnames: ptrResult.data || [],
-        error: ptrResult.error
+        hostnames: ptrResult.data || []
     };
 }
