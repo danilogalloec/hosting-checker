@@ -52,7 +52,7 @@ export default function SupportTool() {
     }, [targetDomain]);
 
     const generateJson = () => {
-        const data: any = {
+        const data: Record<string, string | null> = {
             ipv4: clientInfo?.ip || 'Loading...',
             hostname: clientInfo?.hostname || 'Loading...',
             userAgent: clientInfo?.userAgent || 'Loading...',

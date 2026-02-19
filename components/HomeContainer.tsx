@@ -1,11 +1,10 @@
 'use client';
 
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/Tabs';
 import { SearchForm } from '@/components/ui/SearchForm';
 import SSLAnalysisTool from '@/components/results/SSLAnalysisTool';
 import IpAnalysisTool from '@/components/results/IpAnalysisTool';
 import SupportTool from '@/components/results/SupportTool';
-import { Globe, Shield, Activity, Network, Lock } from 'lucide-react';
+import { Globe, Shield, Network, Lock } from 'lucide-react';
 import React, { useState } from 'react';
 
 // Define the Tabs components locally if the import fails, or assume they exist. 
