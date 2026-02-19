@@ -6,6 +6,10 @@ services:
       context: .
       dockerfile: docker/Dockerfile
     container_name: hosting-checker
+    # Forzamos el uso de DNS externos para evitar el error ESERVFAIL
+    dns:
+      - 8.8.8.8
+      - 1.1.1.1
     ports:
       - "3000:3000"
     environment:
@@ -27,7 +31,10 @@ services:
       # App Config
       - NEXT_PUBLIC_APP_URL=${NEXT_PUBLIC_APP_URL:-http://localhost:3000}
       - NODE_ENV=production
-    restart: unless-stopped
+    
+    # Cambiado a 'always' para mayor estabilidad con tus otras instancias
+    restart: always
+    
     healthcheck:
       test: ["CMD", "node", "-e", "require('http').get('http://localhost:3000', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})"]
       interval: 30s
