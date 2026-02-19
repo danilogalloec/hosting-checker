@@ -2,9 +2,10 @@
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/Tabs';
 import { SearchForm } from '@/components/ui/SearchForm';
+import SSLAnalysisTool from '@/components/results/SSLAnalysisTool';
 import IpAnalysisTool from '@/components/results/IpAnalysisTool';
 import SupportTool from '@/components/results/SupportTool';
-import { Globe, Shield, Activity, Network } from 'lucide-react';
+import { Globe, Shield, Activity, Network, Lock } from 'lucide-react';
 import React, { useState } from 'react';
 
 // Define the Tabs components locally if the import fails, or assume they exist. 
@@ -20,8 +21,8 @@ export default function HomeContainer() {
             <div className="flex flex-col space-y-8">
 
                 {/* Tab List */}
-                <div className="flex justify-center">
-                    <div className="inline-flex bg-white border border-gray-200 p-1.5 rounded-xl shadow-sm">
+                <div className="flex justify-center flex-wrap gap-2">
+                    <div className="inline-flex flex-wrap justify-center bg-white border border-gray-200 p-1.5 rounded-xl shadow-sm gap-1">
                         <button
                             onClick={() => setActiveTab('domain')}
                             className={`flex items-center gap-2 px-6 py-3 rounded-lg text-sm font-medium transition-all ${activeTab === 'domain'
@@ -41,6 +42,16 @@ export default function HomeContainer() {
                         >
                             <Network className="h-4 w-4" />
                             IP Analysis
+                        </button>
+                        <button
+                            onClick={() => setActiveTab('ssl')}
+                            className={`flex items-center gap-2 px-6 py-3 rounded-lg text-sm font-medium transition-all ${activeTab === 'ssl'
+                                ? 'bg-green-50 text-green-700 shadow-sm'
+                                : 'text-gray-600 hover:bg-gray-50'
+                                }`}
+                        >
+                            <Lock className="h-4 w-4" />
+                            SSL Check
                         </button>
                         <button
                             onClick={() => setActiveTab('myip')}
@@ -90,6 +101,12 @@ export default function HomeContainer() {
                     {activeTab === 'ip' && (
                         <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
                             <IpAnalysisTool />
+                        </div>
+                    )}
+
+                    {activeTab === 'ssl' && (
+                        <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+                            <SSLAnalysisTool />
                         </div>
                     )}
 

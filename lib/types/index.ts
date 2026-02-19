@@ -131,6 +131,66 @@ export interface HealthCheckInfo {
 }
 
 // ============================================
+// SSL CHECK
+// ============================================
+
+export interface CertificateChainItem {
+  subject: {
+    C?: string;
+    O?: string;
+    CN?: string;
+    OU?: string;
+  };
+  issuer: {
+    C?: string;
+    O?: string;
+    CN?: string;
+    OU?: string;
+  };
+  validFrom: string;
+  validTo: string;
+  fingerprint: string;
+  serialNumber: string;
+  signatureAlgorithm?: string;
+}
+
+export interface SSLCheckInfo {
+  domain: string;
+  valid: boolean;
+  validFrom: string;
+  validTo: string;
+  daysUntilExpiry: number;
+  issuer: {
+    C?: string;
+    O?: string;
+    CN?: string;
+    OU?: string;
+  };
+  subject: {
+    C?: string;
+    O?: string;
+    CN?: string;
+    OU?: string;
+    L?: string;
+    ST?: string;
+  };
+  protocol?: string;
+  cipher?: {
+    name: string;
+    version: string;
+  } | string; // tls.getCipher() returns object or null, but in types we might want to simplify or match node types
+  serialNumber: string;
+  fingerprint: string;
+  fingerprint256: string;
+  signatureAlgorithm?: string;
+  sans: string[];
+  ip?: string;
+  server?: string;
+  hsts?: boolean;
+  chain: CertificateChainItem[];
+}
+
+// ============================================
 // DNS ANALYSIS
 // ============================================
 

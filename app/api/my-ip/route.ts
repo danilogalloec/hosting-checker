@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { headers } from 'next/headers';
+import { getReverseDns } from '@/lib/services/dns-reverse';
 
+export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
 export async function GET() {
@@ -13,7 +15,6 @@ export async function GET() {
     let hostname = 'Unknown';
     try {
         // Attempt to resolve client hostname
-        const { getReverseDns } = await import('@/lib/services/dns-reverse');
         const dnsResult = await getReverseDns(realIp);
         hostname = dnsResult.hostnames?.[0] || 'N/A';
     } catch (error) {
